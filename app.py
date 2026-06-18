@@ -10,3 +10,7 @@ vectorstore = Chroma(
     persist_directory = "chroma_db",
     embedding_function = embeddings
 )
+
+#============Configure the Database to act as a document retriever===========
+retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
+
