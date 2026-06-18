@@ -20,6 +20,8 @@ print("Header row:", table[0]) # table[0] is the header row. each index represen
 print("First data row:", table[1])
 
 # ==============================Convert row to a sentence==================
+# this we have done using a particular table to out mind
+'''
 def row_to_sentence(row, table):
     province = row[0]
     district = row[1]
@@ -41,4 +43,24 @@ def row_to_sentence(row, table):
 
 # Test it on the first data row
 test_sentence = row_to_sentence(table[1], title)
+print(test_sentence)
+'''
+
+def row_to_sentence(header, row, title):
+    # pair each column with its cell value, skipping empty cells
+    parts = []
+
+    for col_name, value in zip(header, row):
+        if value is not None and col_name is not None:
+            parts.append(f"{col_name}: {value}")
+
+    # skip rows that are basically empty (eg: sub-totals with no label)
+    if len(parts)<2:
+        return None
+
+    return f"From '{title}' — " + ", ".join(parts) + "."
+
+# Test on the first data row
+header = table[0]
+test_sentence = row_to_sentence(header, table[1], title)
 print(test_sentence)
