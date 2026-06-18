@@ -27,3 +27,16 @@ qa_chain = RetrievalQA(
     retriever = retriever,
     return_source_documents = True
 )
+
+#=============Ask questions to the model in a loop==============================
+print ("Ask about the document! (type 'quit' to exit)\n")
+
+#====================Ask question in a loop=====================================
+# this block lets you type questions and get answers, repeatedly, until you type quit.
+while True:
+    question = input("Question: ")
+    if question.lower() == "quit":
+        break
+    result = qa_chain.invoke({"query": question})
+    print("\nAnswer:", result["result"])
+    print("-" * 50)
