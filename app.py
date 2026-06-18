@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_community.vectorstores import Chroma
 
 load_dotenv()
@@ -13,4 +13,7 @@ vectorstore = Chroma(
 
 #============Configure the Database to act as a document retriever===========
 retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
+
+#==============================Setting up the LLM=================================
+llm = ChatGoogleGenerativeAI(model = "gemini-2.5-flask", temperature = 0.3)
 
