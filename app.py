@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_community.vectorstores import Chroma
+from langchain_classic.chains import RetrievalQA
 
 load_dotenv()
 
@@ -12,8 +13,17 @@ vectorstore = Chroma(
 )
 
 #============Configure the Database to act as a document retriever===========
+# "given a question, return the most relevant chunks."
 retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
 
 #==============================Setting up the LLM=================================
+# the chat model that actually writes answers.
 llm = ChatGoogleGenerativeAI(model = "gemini-2.5-flask", temperature = 0.3)
 
+#================Chains the LLM and Retriever together============================
+# Builds the actual RAG pipeline by connecting your retriever to your LLM
+qa_chain = RetrievalQA(
+    llm = llm,
+    retriever = retriever,
+    return_source_documents = True
+)
