@@ -24,3 +24,6 @@ image = page.render(scale = 2).to_pil() # scale = 2 -> higer resolution and shar
 image.save("images/page_14.png")
 print("Saved images/page_14.png — open it and check it's readable")
 
+# read the saved image and encode it
+with open("images/page_14.png", "rb") as f:
+    image_data = base64.b64encode(f.read()).decode("utf-8")
