@@ -1,3 +1,10 @@
+'''
+This page was build to convert table's information into a single sentence, so that even if the page
+gets splitted, we could clearly parse it. But the problem occured was, it couldnt work properly for those
+tables which has multiheadings (i.e. sub headers). So, the method to convert each table rows into a
+sentence has been dropped and now we go on with the LLM Vision to read the table.
+'''
+
 import time
 import pdfplumber
 from dotenv import load_dotenv
