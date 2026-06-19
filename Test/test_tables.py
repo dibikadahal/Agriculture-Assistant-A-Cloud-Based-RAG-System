@@ -1,6 +1,6 @@
 import pdfplumber
 
-pdf_path = "data/Statistical_Nepalese_Agriculture.pdf"
+pdf_path = "../data/Statistical_Nepalese_Agriculture.pdf"
 page_index = 14   # a page with a big 45-row table
 
 with pdfplumber.open(pdf_path) as pdf:

@@ -11,7 +11,7 @@ load_dotenv()
 # ======loading the PDF Document -> list of documents (one per page)=============
 loader = PyPDFLoader("data/SaveAndGrow.pdf") #PyPDFLoader reads a single file
 documents = loader.load()
-print(documents[0].page_content)
+print(f"Loaded {len(documents)} pages.")
 
 
 #=========================CHUNKING THE TEXT===============================

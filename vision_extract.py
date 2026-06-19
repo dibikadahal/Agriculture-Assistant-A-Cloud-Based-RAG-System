@@ -15,6 +15,6 @@ image = page.render(scale = 2).to_pil() # scale = 2 -> higer resolution and shar
 
 
 # save the image so we can see what actually does the model sees
-image.save("page 14 text.png")
-print("Saved page_14_test.png — open it and check it's readable")
+image.save("images/page_14.png")
+print("Saved images/page_14.png — open it and check it's readable")
 

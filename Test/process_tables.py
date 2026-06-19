@@ -2,7 +2,7 @@
 
 import pdfplumber
 
-pdf_path = "data/Statistical_Nepalese_Agriculture.pdf"
+pdf_path = "../data/Statistical_Nepalese_Agriculture.pdf"
 page_index = 14
 
 with pdfplumber.open(pdf_path) as pdf:
