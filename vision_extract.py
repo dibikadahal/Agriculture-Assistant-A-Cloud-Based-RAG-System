@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 import io
 import time
 from langchain_core.documents import Document
+from langchain_google_genai import GoogleGenerativeAIEmbeddings
+from langchain_community.vectorstores import Chroma
 
 load_dotenv()
 
@@ -105,6 +107,26 @@ documents = []
 
 for text, meta in zip(all_texts, all_metadata):
     documents.append(Document(page_content = text, metadata = meta))
-    
+
 print(f"Created {len(documents)} Document objects.")
 
+
+# =====================Embed and Store into Chroma DB====================================
+# this is the final step — turn the documents into vectors and add them to your existing chroma_db (alongside SaveAndGrow).
+# After this, app.py can answer statistical questions.
+embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+
+vectorstore = Chroma(
+    embedding_function=embeddings,
+    persist_directory="chroma_db"     # SAME db as SaveAndGrow → merges in
+)
+
+# add in small batches with pauses
+batch_size = 5
+for i in range(0, len(documents), batch_size):
+    batch = documents[i:i + batch_size] # extracts small group using list slicing (like: Document 0, 1, 2, 3, 4) at a time
+    vectorstore.add_documents(batch) # This takes just that isolated batch of 5 documents, contacts the AI model to turn them into vector embeddings, and saves them into your Chroma database.
+    print(f"Embedded {i + len(batch)} / {len(documents)} documents...")
+    time.sleep(60)
+
+print(f"Done. Added {len(documents)} statistical documents to chroma_db.")
