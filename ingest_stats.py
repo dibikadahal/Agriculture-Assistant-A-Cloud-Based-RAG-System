@@ -19,3 +19,22 @@ def row_to_sentence(header, row, title):
     if len(parts) < 2:
         return None
     return f"From '{title}' — " + ", ".join(parts) + "."
+
+
+# this code extracts one page's table into sentence (====TEST CODE====)
+all_sentences = []
+with pdfplumber.open(pdf_path) as pdf:
+    page = pdf.pages[14]
+    text = page.extract_text() or ""
+    title = text.split("\n")[0]
+    tables = page.extract_tables()
+
+    for table in tables:
+        header = table[0]
+        for row in table[1:]:
+            sentence = row_to_sentence(header, row, title)
+            if sentence is not None:
+                all_sentences.append(sentence)
+
+print(f"Made {len(all_sentences)} sentences from page 14")
+print("\nExample:", all_sentences[0])
