@@ -4,6 +4,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage
 from dotenv import load_dotenv
 import io
+import time
 
 load_dotenv()
 
@@ -72,5 +73,27 @@ def extract_page_text(page_index):
     return response.content
 
 # Test the function on page 14
-print(extract_page_text(15))
+# print(extract_page_text(15))
+
+
+# loop over all pages from 11 to 24
+all_texts = []
+all_metadata = []
+
+for page_index in range(11,25): # page numbers 12 to 25
+    print(f"Extracting page {page_index}")
+    text = extract_page_text(page_index)
+
+    if "NO TABLE" in text:
+        print(f"Page {page_index} has no tables, skipped")
+    else:
+        all_texts.append(text)
+        all_metadata.append({"page": page_index, "source": "Statistical_Nepalese_Agriculture"})
+        print(f"  Page {page_index}: extracted {len(text)} characters.")
+
+    time.sleep(5)
+
+print(f"\nDone. Extracted text from {len(all_texts)} pages.")
+
+
 
