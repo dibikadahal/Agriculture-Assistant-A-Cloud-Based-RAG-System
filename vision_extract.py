@@ -1,4 +1,10 @@
 import pypdfium2 as pdfium # ypdfium2 talks directly to Google Chrome's C++ code and creates what is called a Bitmap.
+import base64 # it takes binary data (like an image, PDF or an executable file) and convert it into a safe, clean string of text characters.
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.messages import HumanMessage
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # add the pdf file path
 pdf_path = "data/Statistical_Nepalese_Agriculture.pdf"
