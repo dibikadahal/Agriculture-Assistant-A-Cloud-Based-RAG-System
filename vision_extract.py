@@ -5,6 +5,7 @@ from langchain_core.messages import HumanMessage
 from dotenv import load_dotenv
 import io
 import time
+from langchain_core.documents import Document
 
 load_dotenv()
 
@@ -76,7 +77,7 @@ def extract_page_text(page_index):
 # print(extract_page_text(15))
 
 
-# loop over all pages from 11 to 24
+# ================LOOP OVER ALL THE PAGES FROM 11 TO 25=================================
 all_texts = []
 all_metadata = []
 
@@ -91,9 +92,19 @@ for page_index in range(11,25): # page numbers 12 to 25
         all_metadata.append({"page": page_index, "source": "Statistical_Nepalese_Agriculture"})
         print(f"  Page {page_index}: extracted {len(text)} characters.")
 
-    time.sleep(5)
+    time.sleep(5) # a 5-second gap between vision calls
 
 print(f"\nDone. Extracted text from {len(all_texts)} pages.")
 
 
+# ===========================WRAP TEXT WITH DOCUMENTS=================================
+# Chroma stores Document objects, not raw strings.
+# A Document bundles the text with its metadata (the page number), so the page citation
+# travels with the data into the database.
+documents = []
+
+for text, meta in zip(all_texts, all_metadata):
+    documents.append(Document(page_content = text, metadata = meta))
+    
+print(f"Created {len(documents)} Document objects.")
 
