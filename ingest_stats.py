@@ -21,20 +21,27 @@ def row_to_sentence(header, row, title):
     return f"From '{title}' — " + ", ".join(parts) + "."
 
 
-# this code extracts one page's table into sentence (====TEST CODE====)
+# this code extracts one page's table into sentence
 all_sentences = []
+all_metadata = [] # this is used to remember from which page the sentence came.
+
 with pdfplumber.open(pdf_path) as pdf:
-    page = pdf.pages[14]
-    text = page.extract_text() or ""
-    title = text.split("\n")[0]
-    tables = page.extract_tables()
+    for page_index in range(11, 25):
+        page = pdf.pages[page_index]
+        text = page.extract_text() or ""
+        title = text.split("\n")[0]
+        tables = page.extract_tables()
 
-    for table in tables:
-        header = table[0]
-        for row in table[1:]:
-            sentence = row_to_sentence(header, row, title)
-            if sentence is not None:
-                all_sentences.append(sentence)
+        for table in tables:
+            if not table or len(table) < 2: # this means skip empty tables ot those tables which only contains headers
+                continue
+            header = table[0]
+            for row in table[1:]:
+                sentence = row_to_sentence(header, row, title)
+                if sentence is not None:
+                    all_sentences.append(sentence)
+                    all_metadata.append({"page": page_index, "source": "Statistical_Nepalese_Agriculture"})
 
-print(f"Made {len(all_sentences)} sentences from page 14")
-print("\nExample:", all_sentences[0])
+print(f"Total sentences from pages 11-24: {len(all_sentences)}")
+print("\nFirst sentence:", all_sentences[0])
+print("Last sentence:", all_sentences[-1])
