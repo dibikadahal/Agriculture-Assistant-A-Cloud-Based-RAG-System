@@ -3,9 +3,12 @@ import base64 # it takes binary data (like an image, PDF or an executable file) 
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.messages import HumanMessage
 from dotenv import load_dotenv
+import io
 
 load_dotenv()
 
+# ===================This code was done as a test code for a specific page ========================
+'''
 # add the pdf file path
 pdf_path = "data/Statistical_Nepalese_Agriculture.pdf"
 
@@ -27,3 +30,47 @@ print("Saved images/page_14.png — open it and check it's readable")
 # read the saved image and encode it
 with open("images/page_14.png", "rb") as f:
     image_data = base64.b64encode(f.read()).decode("utf-8")
+
+# Set up the vision-capable model
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+
+# Build a multimodal message: text instruction + the image
+message = HumanMessage(content=[
+    {"type": "text", "text": "Describe every table in this image. For each data row, write one sentence that includes the table title, the row's labels, and every value correctly paired with its column. Be precise with numbers."},
+    {"type": "image_url", "image_url": f"data:image/png;base64,{image_data}"}
+])
+
+# Send it and print the response
+response = llm.invoke([message])
+print(response.content)
+'''
+
+pdf_path = "data/Statistical_Nepalese_Agriculture.pdf"
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+
+INSTRUCTION = (
+    "Describe every table in this image. For each data row, write one sentence "
+    "that includes the table title, the row's labels, and every value correctly "
+    "paired with its column. Be precise with numbers. If there are no tables, reply 'NO TABLE'."
+)
+
+def extract_page_text(page_index):
+    # render the page to an image
+    pdf = pdfium.PdfDocument(pdf_path)
+    image = pdf[page_index].render(scale=2).to_pil()
+    image.save(f"images/page_{page_index}.png")
+
+    buffer = io.BytesIO()
+    image.save(buffer, format="PNG")
+    image_data = base64.b64encode(buffer.getvalue()).decode("utf-8")
+
+    message = HumanMessage(content=[
+        {"type": "text", "text": INSTRUCTION},
+        {"type": "image_url", "image_url": f"data:image/png;base64,{image_data}"}
+    ])
+    response = llm.invoke([message])
+    return response.content
+
+# Test the function on page 14
+print(extract_page_text(15))
+
