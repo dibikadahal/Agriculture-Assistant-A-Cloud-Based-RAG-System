@@ -4,8 +4,6 @@ from langchain_community.vectorstores import Chroma
 from langchain_classic.chains import RetrievalQA # connect external database to an LLM allowing the model to answer questions using private, up-to-date, or specific documents rather than just its pre-trained knowledge
 from dotenv import load_dotenv
 
-from ingest import vectorstore
-
 load_dotenv()
 
 st.set_page_config(
@@ -33,3 +31,9 @@ def load_rag_engine():
     return qa_chain
 
 qa_chain = load_rag_engine()
+
+
+# ======================The visible header page===================================
+st.title("🌾 Agriculture Assistant")
+st.caption("Ask me about the farming practices and Nepal's agriculture statistics")
+
