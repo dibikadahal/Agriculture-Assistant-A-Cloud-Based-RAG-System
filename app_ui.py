@@ -52,7 +52,7 @@ for message in st.session_state.messages:
 # := "walrus operator" - assigns the typed text to prompt and check if it's truthy
 if prompt := st.chat_input("Ask your question related to agriculture here...."):
     # 1. Show and also store the user's message
-    st.session_state.messgaes.append({"role": "user", "content": prompt})
+    st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
@@ -64,4 +64,4 @@ if prompt := st.chat_input("Ask your question related to agriculture here...."):
             st.markdown(answer)
 
     # 3. Store the assistant's answer
-    st.session_state.messages.append({"role": "user", "content": answer})
+    st.session_state.messages.append({"role": "assistant", "content": answer})
