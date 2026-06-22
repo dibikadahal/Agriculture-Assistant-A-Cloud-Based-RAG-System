@@ -43,6 +43,25 @@ if "messages" not in st.session_state:
     st.session_state["messages"] = []
 
 # ====================Display the Chat History ====================================
+# Loops through every stored message and displays it on screen as a chat bubble
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
+
+# =======================Chat Input + Running the RAG ===============================
+# := "walrus operator" - assigns the typed text to prompt and check if it's truthy
+if prompt := st.chat_input("Ask your question related to agriculture here...."):
+    # 1. Show and also store the user's message
+    st.session_state.messgaes.append({"role": "user", "content": prompt})
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    # 2. Get answer from the RAG system
+    with st.chat_message("assistant"):
+        with st.spinner("Thinking....."):
+            result = qa_chain.invoke({"query":prompt})
+            answer = result["result"]
+            st.markdown(answer)
+
+    # 3. Store the assistant's answer
+    st.session_state.messages.append({"role": "user", "content": answer})
