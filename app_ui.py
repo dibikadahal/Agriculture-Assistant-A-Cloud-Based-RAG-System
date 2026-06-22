@@ -37,3 +37,6 @@ qa_chain = load_rag_engine()
 st.title("🌾 Agriculture Assistant")
 st.caption("Ask me about the farming practices and Nepal's agriculture statistics")
 
+# ====================Initialize the chat history====================================
+if "messages" not in st.session_state:
+    st.session_state["messages"] = []
