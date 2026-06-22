@@ -33,10 +33,16 @@ def load_rag_engine():
 qa_chain = load_rag_engine()
 
 
-# ======================The visible header page===================================
+# ======================The visible header page ===================================
 st.title("🌾 Agriculture Assistant")
 st.caption("Ask me about the farming practices and Nepal's agriculture statistics")
 
-# ====================Initialize the chat history====================================
+# ====================Initialize the chat history ====================================
+# st.session_state is stored in your computer's RAM (memory)
 if "messages" not in st.session_state:
     st.session_state["messages"] = []
+
+# ====================Display the Chat History ====================================
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
