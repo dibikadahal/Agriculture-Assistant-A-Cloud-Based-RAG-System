@@ -11,3 +11,15 @@ from langchain_core.documents import Document
 from dotenv import load_dotenv
 
 load_dotenv()
+
+
+pdf_path = "data/SaveAndGrow.pdf"
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+
+INSTRUCTION = (
+    "This is a page from an agriculture book that may contain charts, graphs, "
+    "or diagrams. If it has a chart or graph, read it carefully: for each data "
+    "point or bar, estimate its value from the axis and write a clear sentence "
+    "stating what it shows. Include the chart's title. If there is no chart or "
+    "graph on this page, reply only 'NO CHART'."
+)
