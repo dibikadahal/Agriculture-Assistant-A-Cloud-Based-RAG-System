@@ -14,7 +14,7 @@ vectorstore = Chroma(
 
 #============Configure the Database to act as a document retriever===========
 # "given a question, return the most relevant chunks."
-retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
+retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
 #==============================Setting up the LLM=================================
 # the chat model that actually writes answers.
