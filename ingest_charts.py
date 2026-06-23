@@ -23,3 +23,24 @@ INSTRUCTION = (
     "stating what it shows. Include the chart's title. If there is no chart or "
     "graph on this page, reply only 'NO CHART'."
 )
+
+
+# ==============The render and vision function============================
+def extract_chart_text(page_index):
+    # Render the page to an image
+    pdf = pdfium.PdfDocument(pdf_path)
+    image = pdf[page_index].render(scale=2).to_pil()
+    image.save(f"images/saveandgrow_page_{page_index}.png")
+
+    # Encode the image
+    buffer = io.BytesIO()
+    image.save(buffer, format="PNG")
+    image_data = base64.b64encode(buffer.getvalue()).decode("utf-8")
+
+    # Send image + instruction to the vision model
+    message = HumanMessage(content=[
+        {"type": "text", "text": INSTRUCTION},
+        {"type": "image_url", "image_url": f"data:image/png;base64,{image_data}"}
+    ])
+    response = llm.invoke([message])
+    return response.content
