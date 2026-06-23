@@ -63,3 +63,28 @@ for page_index in range(43, 47):     # pages 43, 44, 45, 46
     time.sleep(5)     # pause between vision calls (rate limit)
 
 print(f"\nDone reading. Got chart data from {len(all_texts)} pages.")
+
+# Wrap as document
+documents = []
+for text, meta in zip(all_texts, all_metadata):
+    documents.append(Document(page_content=text, metadata=meta))
+
+print(f"Created {len(documents)} Document objects.")
+
+
+# Embed and Store into Chroma_DB
+embeddings = GoogleGenerativeAIEmbeddings(model="models/gemini-embedding-001")
+
+vectorstore = Chroma(
+    embedding_function=embeddings,
+    persist_directory="chroma_db"     # SAME database — adds to existing data
+)
+
+batch_size = 5
+for i in range(0, len(documents), batch_size):
+    batch = documents[i:i + batch_size]
+    vectorstore.add_documents(batch)
+    print(f"Embedded {i + len(batch)} / {len(documents)} documents...")
+    time.sleep(60)
+
+print(f"Done. Added {len(documents)} chart documents to chroma_db.")
