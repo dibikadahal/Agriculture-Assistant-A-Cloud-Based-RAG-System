@@ -92,3 +92,11 @@ if prompt := st.chat_input("Ask your question related to agriculture here...."):
 
     # 3. Store the assistant's answer
     st.session_state.messages.append({"role": "assistant", "content": answer})
+
+# ===================================ADDING A SIDEBAR===================================
+with st.sidebar:
+    st.header("🌾 About")
+    st.write(
+        "This assistant answers questions about farming practices "
+        "and Nepal's agricultural statistics, using real documents as its source."
+    )
