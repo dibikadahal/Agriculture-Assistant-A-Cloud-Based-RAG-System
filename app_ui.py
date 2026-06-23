@@ -95,36 +95,40 @@ if prompt := st.chat_input("Ask your question related to agriculture here...."):
 
 # ===================================ADDING A SIDEBAR===================================
 with st.sidebar:
-    st.header("🌾 About")
-    st.write(
-        "This assistant answers questions about farming practices "
-        "and Nepal's agricultural statistics, using real documents as its source."
-    )
+
+    st.markdown("<h1 style='text-align: center;'>Info and Guide</h1>", unsafe_allow_html=True)
+    st.markdown("<div style='margin-bottom: 30px;'></div>", unsafe_allow_html=True)
+
+    with st.expander("🌾 About"):
+        st.write(
+            "This assistant answers questions about farming practices "
+            "and Nepal's agricultural statistics, using real documents as its source."
+        )
 
     st.divider()
-    st.subheader("📚 Data Sources")
-    st.markdown(
-        "**1. Save and Grow (FAO)**  \n"
-        "A guide on sustainable farming — soil health, crop rotation, "
-        "conservation agriculture, and pest management.  \n"
-        "[📄 View source](https://www.fao.org/4/i2215e/i2215e.pdf)\n\n"
-        "**2. Statistical Information on Nepalese Agriculture 2080/81**  \n"
-        "Official government data on crop area, production, and yield "
-        "across Nepal's provinces and districts.  \n"
-        "[📄 View source](https://giwmscdnone.gov.np/media/pdf_upload/Statistical%20Information%20on%20Nepalese%20Agriculture,%202080_81_a7s8aj4.pdf)"
-    )
+    with st.expander("📚 Data Sources"):
+        st.markdown(
+            "**1. Save and Grow (FAO)**  \n"
+            "A guide on sustainable farming — soil health, crop rotation, "
+            "conservation agriculture, and pest management.  \n"
+            "[📄 View source](https://www.fao.org/4/i2215e/i2215e.pdf)\n\n"
+            "**2. Statistical Information on Nepalese Agriculture 2080/81**  \n"
+            "Official government data on crop area, production, and yield "
+            "across Nepal's provinces and districts.  \n"
+            "[📄 View source](https://giwmscdnone.gov.np/media/pdf_upload/Statistical%20Information%20on%20Nepalese%20Agriculture,%202080_81_a7s8aj4.pdf)"
+        )
 
     st.divider()
-    st.subheader("⚙️ How It Works")
-    st.markdown(
-        "**1. You ask** a question  \n"
-        "**2. Search** — your question is matched against the documents "
-        "to find the most relevant pieces  \n"
-        "**3. Answer** — the AI reads those pieces and writes a response "
-        "grounded in them"
-    )
-    st.caption(
-        "This means answers come from the actual documents, "
-        "not the AI's general knowledge."
-    )
+    with st.expander("⚙️ How It Works"):
+        st.markdown(
+            "**1. You ask** a question  \n"
+            "**2. Search** — your question is matched against the documents "
+            "to find the most relevant pieces  \n"
+            "**3. Answer** — the AI reads those pieces and writes a response "
+            "grounded in them"
+        )
+        st.caption(
+            "This means answers come from the actual documents, "
+            "not the AI's general knowledge."
+        )
 
