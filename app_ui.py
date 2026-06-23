@@ -106,8 +106,11 @@ with st.sidebar:
     st.markdown(
         "**1. Save and Grow (FAO)**  \n"
         "A guide on sustainable farming — soil health, crop rotation, "
-        "conservation agriculture, and pest management.\n\n"
+        "conservation agriculture, and pest management.  \n"
+        "[📄 View source](https://www.fao.org/4/i2215e/i2215e.pdf)\n\n"
         "**2. Statistical Information on Nepalese Agriculture 2080/81**  \n"
         "Official government data on crop area, production, and yield "
-        "across Nepal's provinces and districts."
+        "across Nepal's provinces and districts.  \n"
+        "[📄 View source](https://giwmscdnone.gov.np/media/pdf_upload/Statistical%20Information%20on%20Nepalese%20Agriculture,%202080_81_a7s8aj4.pdf)"
     )
+
