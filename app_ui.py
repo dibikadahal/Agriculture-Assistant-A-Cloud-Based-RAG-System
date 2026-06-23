@@ -100,3 +100,14 @@ with st.sidebar:
         "This assistant answers questions about farming practices "
         "and Nepal's agricultural statistics, using real documents as its source."
     )
+
+    st.divider()
+    st.subheader("📚 Data Sources")
+    st.markdown(
+        "**1. Save and Grow (FAO)**  \n"
+        "A guide on sustainable farming — soil health, crop rotation, "
+        "conservation agriculture, and pest management.\n\n"
+        "**2. Statistical Information on Nepalese Agriculture 2080/81**  \n"
+        "Official government data on crop area, production, and yield "
+        "across Nepal's provinces and districts."
+    )
