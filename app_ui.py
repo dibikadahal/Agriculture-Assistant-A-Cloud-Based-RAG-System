@@ -61,8 +61,17 @@ qa_chain = load_rag_engine()
 
 
 # ======================The visible header page ===================================
-st.title("🌾 Agriculture Assistant")
-st.caption("Ask me about the farming practices and Nepal's agriculture statistics")
+st.markdown(
+    "<h1 style='text-align: center; color: #6B4E2E; "
+    "font-size: 48px; font-weight: 700; margin-bottom: 0;'>"
+    "🌾 Agriculture Assistant</h1>",
+    unsafe_allow_html=True
+)
+st.markdown(
+    "<p style='text-align: center; color: #8A6D4A; font-size: 16px;'>"
+    "Ask me about farming practices and Nepal's agricultural statistics.</p>",
+    unsafe_allow_html=True
+)
 
 # ====================Initialize the chat history ====================================
 # st.session_state is stored in your computer's RAM (memory)
