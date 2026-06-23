@@ -114,3 +114,17 @@ with st.sidebar:
         "[📄 View source](https://giwmscdnone.gov.np/media/pdf_upload/Statistical%20Information%20on%20Nepalese%20Agriculture,%202080_81_a7s8aj4.pdf)"
     )
 
+    st.divider()
+    st.subheader("⚙️ How It Works")
+    st.markdown(
+        "**1. You ask** a question  \n"
+        "**2. Search** — your question is matched against the documents "
+        "to find the most relevant pieces  \n"
+        "**3. Answer** — the AI reads those pieces and writes a response "
+        "grounded in them"
+    )
+    st.caption(
+        "This means answers come from the actual documents, "
+        "not the AI's general knowledge."
+    )
+
