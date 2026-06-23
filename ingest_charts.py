@@ -44,3 +44,22 @@ def extract_chart_text(page_index):
     ])
     response = llm.invoke([message])
     return response.content
+
+# loop over 43-46 pages and work with charts
+all_texts = []
+all_metadata = []
+
+for page_index in range(43, 47):     # pages 43, 44, 45, 46
+    print(f"Reading page {page_index}...")
+    text = extract_chart_text(page_index)
+
+    if "NO CHART" in text:
+        print(f"  Page {page_index}: no chart, skipped.")
+    else:
+        all_texts.append(text)
+        all_metadata.append({"page": page_index, "source": "SaveAndGrow_charts"})
+        print(f"  Page {page_index}: extracted chart data ({len(text)} chars).")
+
+    time.sleep(5)     # pause between vision calls (rate limit)
+
+print(f"\nDone reading. Got chart data from {len(all_texts)} pages.")
