@@ -50,7 +50,7 @@ def load_rag_engine():
     )
 
     retriever = vectorstore.as_retriever(search_kwargs={"k":4})
-    llm = ChatGoogleGenerativeAI(model = "gemini-2.0-flash", temperature = 0.3)
+    llm = ChatGoogleGenerativeAI(model = "gemini-2.5-flash-lite", temperature = 0.3)
     qa_chain = RetrievalQA.from_chain_type(
         llm=llm,
         retriever=retriever,
