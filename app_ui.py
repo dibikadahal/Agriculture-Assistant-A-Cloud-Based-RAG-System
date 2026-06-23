@@ -12,6 +12,33 @@ st.set_page_config(
     layout = "centered"
 )
 
+# ===================Applying the Earthy background using the CSS==============
+st.markdown("""
+<style>
+.stApp {
+    background: linear-gradient(160deg, #F7F1DE 0%, #DDC795 50%, #B89968 100%);
+}
+.stApp > header{
+    background: transparent;
+}
+[data-testid="stMainBlockContainer"], 
+[data-testid="stAppViewContainer"],
+.main .block-container {
+    background: transparent;
+}
+
+[data-testid="stChatMessage"] {
+    background-color: #FBF6E9;
+    border-radius: 18px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border: 1px solid #A8895A;
+    box-shadow: 0 3px 8px rgba(60, 45, 25, 0.25);
+}
+</style>
+""", unsafe_allow_html=True) # injects raw CSS into the page.
+
+
 # =============================The Cached RAG Engine===========================
 @st.cache_resource
 def load_rag_engine():
