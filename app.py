@@ -18,7 +18,7 @@ retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
 
 #==============================Setting up the LLM=================================
 # the chat model that actually writes answers.
-llm = ChatGoogleGenerativeAI(model = "gemini-2.5-flash", temperature = 0.3)
+llm = ChatGoogleGenerativeAI(model = "gemini-2.0-flash", temperature = 0.3)
 
 #================Chains the LLM and Retriever together============================
 # Builds the actual RAG pipeline by connecting your retriever to your LLM
