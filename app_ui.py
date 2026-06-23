@@ -3,6 +3,7 @@ from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGener
 from langchain_community.vectorstores import Chroma
 from langchain_classic.chains import RetrievalQA # connect external database to an LLM allowing the model to answer questions using private, up-to-date, or specific documents rather than just its pre-trained knowledge
 from dotenv import load_dotenv
+from langchain_google_genai.chat_models import ChatGoogleGenerativeAIError
 
 load_dotenv()
 
@@ -95,12 +96,19 @@ if prompt := st.chat_input("Ask your question related to agriculture here...."):
     # 2. Get answer from the RAG system
     with st.chat_message("assistant"):
         with st.spinner("Thinking....."):
-            result = qa_chain.invoke({"query":prompt})
-            answer = result["result"]
+            try:
+                result = qa_chain.invoke({"query": prompt})
+                answer = result["result"]
+
+            except Exception as e:
+                answer = f"❌ Error: {str(e)}"
+
             st.markdown(answer)
 
     # 3. Store the assistant's answer
-    st.session_state.messages.append({"role": "assistant", "content": answer})
+    st.session_state.messages.append(
+        {"role": "assistant", "content": answer}
+    )
 
 # ===================================ADDING A SIDEBAR===================================
 with st.sidebar:
