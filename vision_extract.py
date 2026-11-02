@@ -23,7 +23,7 @@ INSTRUCTION = (
 def extract_page_text(page_index):
     # render the page to an image
     pdf = pdfium.PdfDocument(pdf_path)
-    image = pdf[page_index].render(scale=2).to_pil() # converts image stored in another format to Python Image Library
+    image = pdf[page_index].render(scale=2).to_pil() # converts image stored in another format to Python Image Library  
     image.save(f"images/page_{page_index}.png")
 
     buffer = io.BytesIO()

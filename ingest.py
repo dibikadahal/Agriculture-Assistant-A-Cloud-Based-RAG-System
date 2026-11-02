@@ -9,7 +9,7 @@ import time
 load_dotenv()
 
 # ======loading the PDF Document -> list of documents (one per page)=============
-loader = PyPDFLoader("data/SaveAndGrow.pdf") #PyPDFLoader reads a single file
+loader = PyPDFLoader("data/SaveAndGrow.pdf")
 documents = loader.load()
 print(f"Loaded {len(documents)} pages.")
 
