@@ -13,4 +13,4 @@ COPY chroma_db/ chroma_db/
 ENV PORT=8501
 EXPOSE 8501
 
-CMD streamlit run app_ui.py --server.port=$PORT --server.address=0.0.0.0 --server.headless=true
+CMD ["streamlit", "run", "app_ui.py", "--server.address=0.0.0.0", "--server.port=8501"]
